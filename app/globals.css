@@ -579,11 +579,12 @@ textarea {
   color: rgba(255, 255, 255, 0.78);
 }
 
+.whatsapp-float,
 .whatsapp-floating {
   position: fixed;
   right: max(22px, calc(env(safe-area-inset-right) + 18px));
   bottom: max(22px, calc(env(safe-area-inset-bottom) + 18px));
-  z-index: 80;
+  z-index: 999;
   display: inline-grid;
   width: 58px;
   height: 58px;
@@ -600,12 +601,20 @@ textarea {
   transform: none;
   pointer-events: auto;
   isolation: isolate;
-  transition: box-shadow 180ms ease, background-color 180ms ease;
+  transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
+.whatsapp-float:hover,
 .whatsapp-floating:hover {
-  transform: none;
+  transform: translateY(-2px);
   box-shadow: 0 22px 48px rgba(37, 211, 102, 0.42);
+}
+
+.whatsapp-float svg,
+.whatsapp-floating svg {
+  width: 27px;
+  height: 27px;
+  stroke-width: 2.4;
 }
 
 .final-cta,
@@ -630,8 +639,7 @@ textarea {
   backdrop-filter: blur(12px);
 }
 
-.whatsapp-floating::before {
-  content: attr(data-tooltip);
+.whatsapp-float__tooltip {
   position: absolute;
   right: 66px;
   top: 50%;
@@ -648,7 +656,8 @@ textarea {
   transition: opacity 180ms ease;
 }
 
-.whatsapp-floating:hover::before {
+.whatsapp-float:hover .whatsapp-float__tooltip,
+.whatsapp-floating:hover .whatsapp-float__tooltip {
   opacity: 1;
 }
 
@@ -1112,28 +1121,30 @@ textarea {
 
 .product-signal-grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 18px;
+  align-items: stretch;
 }
 
 .product-signal-card {
-  display: grid;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
+  border-radius: 8px;
   background: var(--white);
-  padding: 18px;
-  box-shadow: none;
+  padding: 26px;
+  box-shadow: 0 12px 32px rgba(11, 46, 89, 0.08);
   transition: transform 260ms ease, box-shadow 260ms ease;
-  grid-column: span 3;
+  grid-column: span 1;
 }
 
 .product-signal-card--featured {
-  grid-column: span 6;
+  grid-column: span 3;
 }
 
 .product-signal-card--wide {
-  grid-column: 1 / -1;
+  grid-column: span 3;
 }
 
 .product-signal-card:hover {
@@ -1144,6 +1155,10 @@ textarea {
 .product-signal-card p {
   margin: 0;
   color: var(--muted);
+}
+
+.product-signal-card .button {
+  margin-top: auto;
 }
 
 .product-visual {
@@ -1411,6 +1426,17 @@ textarea {
   grid-template-columns: 1.04fr 0.96fr;
   gap: var(--section-gap);
   align-items: center;
+}
+
+.delivery-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
+  gap: clamp(36px, 5vw, 84px);
+  align-items: center;
+}
+
+.delivery-actions {
+  margin-top: 24px;
 }
 
 .sheet-mockup,
@@ -1779,8 +1805,9 @@ textarea {
 @media (max-width: 680px) {
   .quick-period-options {
     display: flex;
-    flex-wrap: wrap;
-    overflow-x: visible;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
   }
 }
 
@@ -2071,12 +2098,41 @@ textarea {
   box-shadow: 0 28px 70px rgba(11, 46, 89, 0.12);
 }
 
+.delivery-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 18px 22px;
+}
+
+.delivery-preview__header strong {
+  color: var(--navy);
+  font-family: var(--font-sora), Sora, sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.delivery-preview__header span {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(15, 163, 166, 0.18);
+  border-radius: 999px;
+  color: var(--teal);
+  background: rgba(15, 163, 166, 0.08);
+  padding: 7px 10px;
+  font-size: 0.78rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
 .delivery-toolbar,
 .delivery-row {
   display: grid;
-  grid-template-columns: 1.25fr 0.95fr 0.85fr 0.8fr 0.7fr 0.75fr 0.7fr 0.95fr;
+  grid-template-columns: 1.25fr 1fr 0.9fr 0.9fr 0.58fr 0.72fr 0.86fr;
   gap: 0;
-  min-width: 940px;
+  min-width: 860px;
 }
 
 .delivery-toolbar {
@@ -2377,13 +2433,8 @@ textarea {
 
   .delivery-toolbar,
   .delivery-row {
-    grid-template-columns: 1.2fr 0.95fr 0.85fr 0.75fr 0.7fr 0.95fr;
-    min-width: 720px;
-  }
-
-  .delivery-row > :nth-child(4),
-  .delivery-row > :nth-child(5) {
-    display: none;
+    grid-template-columns: 1.25fr 1fr 0.9fr 0.9fr 0.58fr 0.72fr 0.86fr;
+    min-width: 860px;
   }
 }
 
@@ -2556,10 +2607,11 @@ textarea {
     gap: 4px;
   }
 
-  .whatsapp-floating::before {
+  .whatsapp-float__tooltip {
     display: none;
   }
 
+  .whatsapp-float,
   .whatsapp-floating {
     right: max(16px, calc(env(safe-area-inset-right) + 12px));
     bottom: max(16px, calc(env(safe-area-inset-bottom) + 12px));
@@ -3291,6 +3343,7 @@ textarea {
 @media (max-width: 980px) {
   .opportunity-showcase,
   .quick-request-layout,
+  .delivery-grid,
   .conversion-system-grid {
     grid-template-columns: 1fr;
   }

@@ -114,3 +114,72 @@ A causa provável da sensação de "aparece e some" é visual/CSS, não estado R
 - `README.md`, `docs/deployment.md` e `docs/github-security.md` foram ajustados para não tratar `github.io` como produção canônica.
 - `e2e/layout.spec.ts` ganhou teste para validar que o WhatsApp permanece fixo e visível durante scroll.
 - `tests/platform-rules.test.mjs` ganhou testes para proteger a separação entre produção real e preview/export estático.
+
+## Atualização 2026-08-17 — redesign refinado com referências Refero
+
+### Arquivos analisados
+
+- `app/page.tsx`
+- `components/Header.tsx`
+- `components/AppShell.tsx`
+- `components/WhatsAppButton.tsx`
+- `components/LeadDeliveryPreview.tsx`
+- `components/HomeBaseBuilderTeaser.tsx`
+- `components/ProductSignalCard.tsx`
+- `lib/whatsapp.ts`
+- `lib/site-url.ts`
+- `lib/asset-path.ts`
+- `next.config.ts`
+- `app/globals.css`
+- `styles/tokens.css`
+- `e2e/layout.spec.ts`
+- `e2e/routes.spec.ts`
+- `e2e/forms.spec.ts`
+
+### Componentes da home
+
+- `Header`
+- Hero premium em `app/page.tsx`
+- `HomeBaseBuilderTeaser`
+- `LeadDeliveryPreview`
+- `ProductSignalCard`
+- Bloco de operação guiada
+- Bloco "Para quem é"
+- `SampleConversionSection`
+- CTA final
+- `Footer`
+- `PreviewBanner`
+- `WhatsAppFloatingButton`
+- `CookieBanner`
+
+### Problemas encontrados nesta etapa
+
+- A demonstração da entrega ainda citava e exibia a coluna `Site`, embora a missão pedisse uma prévia mais limpa e mascarada.
+- O bloco de operação guiada tinha uma imagem principal e mais quatro cards extras, criando excesso visual e repetição de mensagem.
+- O helper do WhatsApp ainda podia gerar `https://wa.me/?text=...` quando o número público não estivesse configurado.
+- O botão flutuante não tinha um componente raiz dedicado com seletor estável para teste.
+- Os chips de período estavam alinhados no desktop, mas o breakpoint mobile voltava a permitir quebra em várias linhas.
+- A grade de bases comerciais usava 12 colunas e variações muito abertas, deixando a leitura menos parecida com cards editoriais premium.
+
+### Causa provável do WhatsApp desaparecer
+
+O problema mais provável continuou sendo a combinação de camada visual e fallback de link, não uma desmontagem por rota ou scroll. A correção aplicada cria `WhatsAppFloatingButton` montado no `AppShell`, usa `z-index: 999`, preserva `position: fixed`, remove dependência de estado/scroll/pathname e garante número padrão `5535998905896` no helper.
+
+### Alterações feitas
+
+- Header reorganizado com links: Bases, Solicitação rápida, Como funciona, Para quem é e Amostra.
+- Demonstração da entrega passou a usar header próprio, badge "Dados fictícios e mascarados" e colunas Empresa, Segmento, Cidade, CNAE, Porte, Abertura e Status.
+- CTA da demonstração adicionado para `/produtos/amostra-gratuita`.
+- Cards extras de operação guiada removidos, mantendo a imagem principal e o selo de validação.
+- Tokens `--pn-*` e tokens de espaçamento adicionados sem trocar a identidade visual.
+- Grid de bases comerciais refinado para 6 colunas, cards mais limpos, borda discreta, menos sombra pesada e CTA alinhado ao fim.
+- Chips de período mantidos em uma linha no desktop e com rolagem horizontal no mobile.
+- `lib/whatsapp.ts` agora sempre monta `https://wa.me/5535998905896?text=...` quando nenhuma variável pública sobrescreve o número.
+- Testes Playwright adicionados para home, WhatsApp flutuante e responsividade.
+
+### Alterações que NÃO serão feitas para preservar o visual
+
+- Não trocar logo, paleta, tipografia, imagens institucionais nem rotas.
+- Não recriar componentes de formulário, produtos, pagamentos, Supabase ou painel administrativo.
+- Não remover a rota `/faq`.
+- Não tratar GitHub Pages como produção canônica; produção continua dependente de `NEXT_PUBLIC_SITE_URL`.

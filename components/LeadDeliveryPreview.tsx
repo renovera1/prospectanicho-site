@@ -1,15 +1,19 @@
-const columns = ["Empresa", "Segmento", "Cidade", "CNAE", "Porte", "Abertura", "Site", "Status"];
+const columns = ["Empresa", "Segmento", "Cidade", "CNAE", "Porte", "Abertura", "Status"];
 
 const rows = [
-  ["Clínica A***", "Saúde", "Campinas", "8630-5/03", "ME", "05/2026", "site", "Nova empresa"],
-  ["Nexo S***", "Energia solar", "Ribeirão Preto", "4321-5/00", "EPP", "04/2026", "site", "Perfil ideal"],
-  ["Alpha F***", "Alimentação", "Jundiaí", "5611-2/01", "ME", "06/2026", "site", "Prioridade"],
-  ["Vértice E***", "Sistemas", "Sorocaba", "6201-5/01", "EPP", "03/2026", "site", "Em expansão"],
+  ["Clínica A***", "Saúde", "Campinas", "8630-5/03", "ME", "05/2026", "Nova empresa"],
+  ["Nexo S***", "Energia solar", "Ribeirão Preto", "4321-5/00", "EPP", "04/2026", "Perfil ideal"],
+  ["Alpha F***", "Alimentação", "Jundiaí", "5611-2/01", "ME", "06/2026", "Prioridade"],
+  ["Vértice E***", "Sistemas", "Sorocaba", "6201-5/01", "EPP", "03/2026", "Em expansão"],
 ];
 
 export function LeadDeliveryPreview() {
   return (
     <div className="delivery-preview" aria-label="Prévia profissional de entrega de base B2B">
+      <div className="delivery-preview__header">
+        <strong>Prévia da planilha</strong>
+        <span>Dados fictícios e mascarados</span>
+      </div>
       <div className="delivery-body">
         <div className="delivery-toolbar">
           <span>Ativas</span>
@@ -23,7 +27,7 @@ export function LeadDeliveryPreview() {
         {rows.map((row) => (
           <div className="delivery-row" key={row.join("-")}>
             {row.map((cell, index) => (
-              index === 7 ? <span className="status-pill" key={cell}>{cell}</span> : <span title={cell} key={`${cell}-${index}`}>{cell}</span>
+              index === 6 ? <span className="status-pill" key={cell}>{cell}</span> : <span title={cell} key={`${cell}-${index}`}>{cell}</span>
             ))}
           </div>
         ))}
@@ -34,7 +38,7 @@ export function LeadDeliveryPreview() {
             <strong>{row[0]}</strong>
             <span>{row[1]} - {row[2]}</span>
             <span>Abertura: {row[5]}</span>
-            <span className="status-pill">{row[7]}</span>
+            <span className="status-pill">{row[6]}</span>
           </article>
         ))}
       </div>

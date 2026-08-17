@@ -1,4 +1,4 @@
-import { ArrowRight, BadgeCheck, ClipboardCheck, CreditCard, Database, MessageCircle, ShieldCheck, Workflow } from "lucide-react";
+import { ArrowRight, BadgeCheck, MessageCircle, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { BrandWatermark } from "@/components/BrandWatermark";
 import { ButtonLink } from "@/components/ButtonLink";
@@ -17,29 +17,6 @@ const impactCards = [
   "Campos úteis para abordagem",
   "Planilha pronta para rotina comercial",
   "Suporte para ajustar o recorte",
-];
-
-const commercialFlow = [
-  {
-    icon: Database,
-    title: "Recorte antes do volume",
-    text: "Nicho, região, período e perfil entram antes da geração da base.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "Validação assistida",
-    text: "Critérios e campos são revisados para reduzir retrabalho comercial.",
-  },
-  {
-    icon: Workflow,
-    title: "Pedido organizado",
-    text: "A solicitação vira um resumo claro para refinamento e atendimento.",
-  },
-  {
-    icon: CreditCard,
-    title: "Compra com contexto",
-    text: "A compra acontece depois da escolha da base ou validação do escopo.",
-  },
 ];
 
 export default function HomePage() {
@@ -78,14 +55,13 @@ export default function HomePage() {
       <HomeBaseBuilderTeaser />
 
       <section className="section section--light delivery-section">
-        <div className="container-wide split-section">
-          <LeadDeliveryPreview />
+        <div className="container-wide delivery-grid">
           <div>
             <p className="eyebrow">DEMONSTRAÇÃO DA ENTREGA</p>
             <h2 className="h2">Veja como sua base chega para a equipe comercial.</h2>
             <p className="lead">
-              Uma prévia simples do formato: empresa, segmento, cidade, CNAE, porte, abertura, site e status comercial
-              ilustrativo.
+              Uma prévia simples do formato: empresa, segmento, cidade, CNAE, porte, abertura e status comercial
+              ilustrativo, com dados fictícios e mascarados.
             </p>
             <div className="impact-stack">
               {impactCards.map((item) => (
@@ -95,7 +71,17 @@ export default function HomePage() {
                 </span>
               ))}
             </div>
+            <div className="btn-row delivery-actions">
+              <ButtonLink href="/produtos/amostra-gratuita" variant="teal">
+                Solicitar tabela grátis de teste
+                <ArrowRight size={18} />
+              </ButtonLink>
+              <ButtonLink href="/como-funciona" variant="secondary">
+                Entender a entrega
+              </ButtonLink>
+            </div>
           </div>
+          <LeadDeliveryPreview />
         </div>
       </section>
 
@@ -152,18 +138,6 @@ export default function HomePage() {
               <strong>Critérios claros antes da entrega</strong>
             </div>
           </div>
-        </div>
-        <div className="container-wide conversion-flow-grid">
-          {commercialFlow.map((item) => {
-            const Icon = item.icon;
-            return (
-              <article className="conversion-flow-card" key={item.title}>
-                <Icon size={23} />
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </article>
-            );
-          })}
         </div>
       </section>
 

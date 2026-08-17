@@ -5,7 +5,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { PreviewBanner } from "@/components/PreviewBanner";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { WhatsAppFloatingButton } from "@/components/WhatsAppFloatingButton";
 
 const legacyRoutes = new Set<string>([]);
 
@@ -22,7 +22,7 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
       <main>{children}</main>
       <Footer />
       <PreviewBanner />
-      <WhatsAppButton />
+      <WhatsAppFloatingButton />
       <CookieBanner />
     </div>
   );

@@ -71,9 +71,9 @@ test("chips de período da solicitação rápida ficam alinhados no desktop", as
 
 test("whatsapp flutuante permanece fixo e visível durante scroll", async ({ page }) => {
   await page.goto("/");
-  const whatsapp = page.locator(".whatsapp-floating");
+  const whatsapp = page.locator('[data-test-id="whatsapp-floating-button"]');
   await expect(whatsapp).toBeVisible();
-  await expect(whatsapp).toHaveAttribute("href", /^https:\/\/wa\.me\//);
+  await expect(whatsapp).toHaveAttribute("href", /^https:\/\/wa\.me\/5535998905896\?text=/);
 
   const samples = [];
   for (const scrollY of [0, 800, 1800]) {
@@ -102,7 +102,7 @@ test("whatsapp flutuante permanece fixo e visível durante scroll", async ({ pag
     expect(sample.visibility).toBe("visible");
     expect(sample.opacity).toBe("1");
     expect(sample.position).toBe("fixed");
-    expect(sample.zIndex).toBeGreaterThanOrEqual(80);
+    expect(sample.zIndex).toBeGreaterThanOrEqual(999);
     expect(sample.width).toBeGreaterThanOrEqual(54);
     expect(sample.height).toBeGreaterThanOrEqual(54);
   }

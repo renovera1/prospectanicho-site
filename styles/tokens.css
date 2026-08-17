@@ -1,4 +1,22 @@
 :root {
+  --pn-navy: #062b4f;
+  --pn-navy-deep: #031d36;
+  --pn-teal: #11a6a0;
+  --pn-teal-dark: #087f80;
+  --pn-ink: #102033;
+  --pn-muted: #5f7187;
+  --pn-surface: #ffffff;
+  --pn-surface-soft: #f5f8fb;
+  --pn-line: rgba(6, 43, 79, 0.12);
+  --pn-radius: 18px;
+  --pn-radius-card: 24px;
+  --pn-radius-pill: 999px;
+  --pn-shadow-card: 0 18px 48px rgba(4, 25, 44, 0.1);
+  --section-y-large: clamp(84px, 8vw, 128px);
+  --section-y: clamp(64px, 6vw, 104px);
+  --section-y-compact: clamp(48px, 5vw, 76px);
+  --section-gap: clamp(32px, 4vw, 56px);
+  --gutter: clamp(20px, 5vw, 96px);
   --content-reading: 760px;
   --content-default: 1360px;
   --content-wide: 1600px;
