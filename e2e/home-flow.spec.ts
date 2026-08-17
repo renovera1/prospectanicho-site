@@ -3,16 +3,14 @@ import { expect, test } from "@playwright/test";
 test("home mantém ordem comercial final e remove FAQ da página inicial", async ({ page }) => {
   await page.goto("/");
 
-  await expect(page.locator(".hero .eyebrow").first()).toContainText(
-    "INTELIGÊNCIA COMERCIAL PARA QUEM PRECISA CRESCER",
-  );
+  await expect(page.locator(".curated-hero .eyebrow").first()).toContainText("INTELIGÊNCIA COMERCIAL B2B");
+  await expect(page.getByRole("heading", { name: "Escolha um nicho. Receba uma base pronta para prospecção." })).toBeVisible();
   await expect(page.getByText("Antes de começar, você talvez queira saber.")).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Ver todas as dúvidas" })).toHaveCount(0);
 
   const sectionTops = await page.evaluate(() => {
     const selectors = [
-      "section.hero",
-      ".builder-teaser-section",
+      ".curated-hero",
       "section:has(.delivery-preview)",
       "section:has(.product-signal-grid)",
       ".conversion-system-section",
